@@ -8,71 +8,23 @@ let cleardisplaySelector = document
   .addEventListener("click", clearDisplay);
 
 let numberButtons = document.querySelectorAll("[data-btn]");
-console.log(numberButtons);
 
+numberButtons.forEach((numberBox) => {
+  numberBox.addEventListener("click", (e) => updateValue(e.target.value));
+});
+
+function updateValue(input) {
+  if (displaySelector.innerHTML > 0) {
+    console.log(displaySelector.innerHTML.length);
+    return (displaySelector.innerHTML += numberButtons[input].value);
+  } else {
+    return (displaySelector.innerHTML = numberButtons[input].value);
+  }
+}
 let keySelectlisten = document
   .querySelector("body")
   .addEventListener("keydown", (e) => {
-    switch (e.key) {
-      case "1":
-        console.log("yay");
-        displaySelector.innerHTML += numberButtons[1].value;
-        break;
-      case "2":
-        console.log("two");
-        displaySelector.innerHTML += numberButtons[2].value;
-
-        break;
-      case "3":
-        console.log("three");
-        displaySelector.innerHTML += numberButtons[3].value;
-
-        break;
-      case "4":
-        console.log("four");
-        displaySelector.innerHTML += numberButtons[4].value;
-
-        break;
-      case "5":
-        console.log("five");
-        displaySelector.innerHTML += numberButtons[5].value;
-
-        break;
-      case "6":
-        console.log("six");
-        displaySelector.innerHTML += numberButtons[6].value;
-
-        break;
-      case "7":
-        console.log("seven");
-        displaySelector.innerHTML += numberButtons[7].value;
-
-        break;
-      case "8":
-        displaySelector.innerHTML += numberButtons[8].value;
-
-        console.log("eight");
-        break;
-      case "9":
-        displaySelector.innerHTML += numberButtons[9].value;
-
-        console.log("nine");
-        break;
-      case "Enter":
-        console.log("enter");
-
-        break;
-      case "/":
-        console.log("divide");
-        break;
-      case "*":
-        console.log("multiply");
-        break;
-      case "Backspace":
-        console.log("delete");
-        clearDisplay();
-        break;
-    }
+    updateValue(e.key);
   });
 const add = function (a, b) {
   return a + b;
