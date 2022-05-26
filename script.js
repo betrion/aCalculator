@@ -8,6 +8,7 @@ let cleardisplaySelector = document
   .addEventListener("click", clearDisplay);
 
 let numberButtons = document.querySelectorAll("[data-btn]");
+let mathOperators = document.querySelectorAll("[data-op]");
 
 numberButtons.forEach((numberBox) => {
   numberBox.addEventListener("click", (e) => updateValue(e.target.value));
@@ -15,15 +16,23 @@ numberButtons.forEach((numberBox) => {
 
 function updateValue(input) {
   if (displaySelector.innerHTML > 0) {
-    console.log(displaySelector.innerHTML.length);
     return (displaySelector.innerHTML += numberButtons[input].value);
   } else {
-    return (displaySelector.innerHTML = numberButtons[input].value);
+    try {
+      return (displaySelector.innerHTML = numberButtons[input].value);
+    } catch (error) {
+      console.log("Invalid key press");
+    }
   }
 }
+
 let keySelectlisten = document
   .querySelector("body")
   .addEventListener("keydown", (e) => {
+    if (e.key == "Backspace") {
+      clearDisplay();
+    }
+    console.log(e.key);
     updateValue(e.key);
   });
 const add = function (a, b) {
@@ -71,3 +80,9 @@ function clearDisplay() {
     displaySelector.innerHTML = 0;
   }
 }
+
+window.addEventListener("keypress", (e) => {
+  if (e.key === "Tab" || e.key === "Spacebar") {
+    e.preventDefault();
+  }
+});
