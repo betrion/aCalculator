@@ -6,6 +6,9 @@ displaySelector.innerHTML = displayValue;
 let cleardisplaySelector = document
   .querySelector(".c")
   .addEventListener("click", clearDisplay);
+let clearEverythingSelector = document
+  .querySelector(".ce")
+  .addEventListener("click", clearEverything);
 
 let numberButtons = document.querySelectorAll("[data-btn]");
 let mathOperators = document.querySelectorAll("[data-op]");
@@ -58,19 +61,7 @@ const multiply = function (array) {
 const power = function (a, b) {
   return a ** b;
 };
-const factorial = function (number) {
-  if (number < 0) {
-    return -1;
-  } else if (number === 0) {
-    return 1;
-  } else {
-    let arr = [];
-    for (let i = 1; i <= number; i++) {
-      arr.push(i);
-    }
-    return arr.reduce((a, b) => a * b);
-  }
-};
+
 function operate(operator, num1, num2) {}
 
 function clearDisplay() {
@@ -79,6 +70,9 @@ function clearDisplay() {
   } else if (displaySelector.innerHTML.length == 1) {
     displaySelector.innerHTML = 0;
   }
+}
+function clearEverything() {
+  displaySelector.innerHTML = 0;
 }
 
 window.addEventListener("keypress", (e) => {
