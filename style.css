@@ -167,12 +167,15 @@ div {
 }
 
 @media screen and (max-width: 450px) {
-  .container,
-  body {
+  .container {
     padding: 0;
     margin: 0 0 0 0;
-    width: 250px;
-    height: 350px;
+    width: 90%;
+    /* height: 90%; */
+  }
+  body {
+    width: 100%;
+    height: 100%;
   }
   .displayhistory {
     font-size: 18px;
