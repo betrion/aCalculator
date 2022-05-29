@@ -1,7 +1,16 @@
-let displayValue = 0;
+const displayValue = 0;
+const historyValue = "";
+
+let firstOperand = null;
+let secondOperand = null;
+let firstOperator = null;
+let secondOperator = null;
 
 let displaySelector = document.querySelector(".display");
-displaySelector.innerHTML = displayValue;
+let historySelector = document.querySelector(".displayhistory");
+
+displaySelector.innerHTML = firstOperand;
+historySelector.innerHTML = historyValue;
 
 let cleardisplaySelector = document
   .querySelector(".c")
@@ -12,23 +21,79 @@ let clearEverythingSelector = document
 
 let numberButtons = document.querySelectorAll("[data-btn]");
 let mathOperators = document.querySelectorAll("[data-op]");
+// let returnOperator = document.querySelector("[data-return]");
 
 numberButtons.forEach((numberBox) => {
   numberBox.addEventListener("click", (e) => updateValue(e.target.value));
 });
 
-function updateValue(input) {
-  if (displaySelector.innerHTML > 0) {
-    return (displaySelector.innerHTML += numberButtons[input].value);
-  } else {
-    try {
-      return (displaySelector.innerHTML = numberButtons[input].value);
-    } catch (error) {
-      console.log("Invalid key press");
+mathOperators.forEach((operator) => {
+  operator.addEventListener("click", (e) => {
+    if (firstOperator === null && secondOperator === null) {
+      historySelector.innerHTML = null;
+
+      firstOperator = e.target.value;
+      console.log(firstOperator);
+      firstOperand = displaySelector.innerHTML;
+      console.log(firstOperand);
+      updateHistory(firstOperand, firstOperator);
+      clearDisplay();
+    } else if (secondOperator === null) {
+      secondOperand = displaySelector.innerHTML;
+      secondOperator = e.target.value;
+      updateHistory(secondOperand, secondOperator);
+      let result = operate(
+        Number(firstOperand),
+        Number(secondOperand),
+        firstOperator
+      );
+      displaySelector.innerHTML = result;
+      firstOperator = null;
+      secondOperator = null;
+      firstOperand = null;
+      secondOperand = null;
+    } else {
     }
+  });
+});
+function main(operator) {}
+
+function operate(firstOperand, secondOperand, operator) {
+  switch (operator) {
+    case "+":
+      return firstOperand + secondOperand;
+      break;
+    case "-":
+      return firstOperand - secondOperand;
+      break;
+    case "*":
+      return firstOperand * secondOperand;
+      break;
+    case "/":
+      return firstOperand / secondOperand;
+
+    default:
+      break;
   }
 }
 
+function updateValue(input) {
+  if (displaySelector.innerHTML > 0) {
+    displaySelector.innerHTML += input;
+  } else {
+    {
+      displaySelector.innerHTML = input;
+    }
+  }
+}
+function updateHistory(operand, operator) {
+  if (historySelector.innerHTML == 0) {
+    historySelector.innerHTML = operand + operator;
+  } else if (historySelector.innerHTML.length > 0) {
+    historySelector.innerHTML += operand;
+  } else {
+  }
+}
 let keySelectlisten = document
   .querySelector("body")
   .addEventListener("keydown", (e) => {
@@ -38,45 +103,22 @@ let keySelectlisten = document
     console.log(e.key);
     updateValue(e.key);
   });
-const add = function (a, b) {
-  return a + b;
-};
 
-const subtract = function (a, b) {
-  return a - b;
-};
+function returnResult(operator, numArray) {}
 
-const sum = function (array) {
-  let total = 0;
-  array.forEach((element) => {
-    total += element;
-  });
-  return total;
-};
-
-const multiply = function (array) {
-  return array.reduce((a, b) => a * b);
-};
-
-const power = function (a, b) {
-  return a ** b;
-};
-
-function operate(operator, num1, num2) {}
-
-function clearDisplay() {
-  if (displaySelector.innerHTML.length > 1) {
-    displaySelector.innerHTML = displaySelector.innerHTML.slice(0, -1);
-  } else if (displaySelector.innerHTML.length == 1) {
-    displaySelector.innerHTML = 0;
-  }
+function clearDisplay(number = 0) {
+  // if (displaySelector.innerHTML.length > 1) {
+  //   displaySelector.innerHTML = displaySelector.innerHTML.slice(0, -1);
+  //   currentNumber = displaySelector.innerHTML;
+  // } else if (displaySelector.innerHTML.length == 1) {
+  //   displaySelector.innerHTML = 0;
+  //   currentNumber = displaySelector.innerHTML;
+  // }
+  displaySelector.innerHTML = 0;
 }
 function clearEverything() {
   displaySelector.innerHTML = 0;
+  currentNumber = displaySelector.innerHTML;
+  historyNumber = [];
+  historySelector.innerHTML = historyNumber;
 }
-
-window.addEventListener("keypress", (e) => {
-  if (e.key === "Tab" || e.key === "Spacebar") {
-    e.preventDefault();
-  }
-});
