@@ -168,8 +168,6 @@ div {
 
 @media screen and (max-width: 450px) {
   .container {
-    padding: 0;
-    margin: 0 0 0 0;
     width: 90%;
     /* height: 90%; */
   }
@@ -178,9 +176,31 @@ div {
     height: 100%;
   }
   .displayhistory {
-    font-size: 18px;
+    font-size: 14px;
   }
   .display {
-    font-size: 24px;
+    font-size: 18px;
   }
+}
+
+.instructions {
+  background-color: rgba(93, 102, 102, 0.76);
+  color: #eaeaea;
+  border: 1px solid #434344;
+  text-align: center;
+  margin: 1em 0 0 0;
+}
+kbd {
+  background-color: #eee;
+  border-radius: 3px;
+  border: 1px solid #b4b4b4;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+    0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
+  color: #333;
+  display: inline-block;
+  font-size: 0.85em;
+  font-weight: 700;
+  line-height: 1;
+  padding: 2px 4px;
+  white-space: nowrap;
 }
