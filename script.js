@@ -35,33 +35,36 @@ numberButtons.forEach((numberBox) => {
 
 mathOperators.forEach((operator) => {
   operator.addEventListener("click", (e) => {
-    if (firstOperator === null && secondOperator === null) {
-      historySelector.innerHTML = null;
-
-      firstOperator = e.target.value;
-      firstOperand = displaySelector.innerHTML.replace("=", "");
-
-      updateHistory(firstOperand, firstOperator);
-      clearDisplay();
-    } else if (secondOperator === null) {
-      secondOperand = displaySelector.innerHTML.replace("=", "");
-      secondOperator = e.target.value;
-      updateHistory(secondOperand, secondOperator);
-      result = operate(
-        Number(firstOperand),
-        Number(secondOperand),
-        firstOperator
-      );
-      if (firstOperand.includes(".") || secondOperand.includes(".")) {
-        displaySelector.innerHTML = parseFloat(result).toFixed(2);
-      } else {
-        displaySelector.innerHTML = `= ${result.toFixed(0)}`;
-      }
-      firstOperator = null;
-      secondOperator = null;
-      firstOperand = null;
-      secondOperand = null;
+    if (e.target.value == "=" && firstOperator == null) {
     } else {
+      if (firstOperator === null && secondOperator === null) {
+        historySelector.innerHTML = null;
+
+        firstOperator = e.target.value;
+        firstOperand = displaySelector.innerHTML.replace("=", "");
+
+        updateHistory(firstOperand, firstOperator);
+        clearDisplay();
+      } else if (secondOperator === null) {
+        secondOperand = displaySelector.innerHTML.replace("=", "");
+        secondOperator = e.target.value;
+        updateHistory(secondOperand, secondOperator);
+        result = operate(
+          Number(firstOperand),
+          Number(secondOperand),
+          firstOperator
+        );
+        if (firstOperand.includes(".") || secondOperand.includes(".")) {
+          displaySelector.innerHTML = parseFloat(result).toFixed(2);
+        } else {
+          displaySelector.innerHTML = `= ${result.toFixed(0)}`;
+        }
+        firstOperator = null;
+        secondOperator = null;
+        firstOperand = null;
+        secondOperand = null;
+      } else {
+      }
     }
   });
 });
@@ -92,7 +95,12 @@ function operate(firstOperand, secondOperand, operator) {
 function updateValue(input) {
   if (displaySelector.innerHTML.includes("=")) {
     displaySelector.innerHTML = input;
-  } else if (displaySelector.innerHTML.length <= 1) {
+  } else if (
+    displaySelector.innerHTML <= 0 &&
+    displaySelector.innerHTML.includes(".")
+  ) {
+    displaySelector.innerHTML += input;
+  } else if (displaySelector.innerHTML <= 0) {
     displaySelector.innerHTML = input;
   } else {
     displaySelector.innerHTML += input;
@@ -139,6 +147,9 @@ let keySelectlisten = document
 
 function backSpace() {
   displaySelector.innerHTML = displaySelector.innerHTML.slice(0, -1);
+  if (displaySelector.innerHTML == "") {
+    displaySelector.innerHTML = 0;
+  }
 }
 function clearDisplay() {
   displaySelector.innerHTML = 0;
